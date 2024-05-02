@@ -12,13 +12,12 @@ if reponse.status_code == 200:
     donnees = reponse.json()
 
     # Extraire les noms des Pokémon de la clé "pokemon_species" et les stocker dans une liste
+    
     liste = [pokemon['name'] for pokemon in donnees['pokemon_species']]
     
     # Afficher la liste des noms des Pokémon
     for nom in liste:
             print(nom)
-    
-
 else:
     # Si la réponse n'est pas réussie, afficher un message d'erreur
     print("Erreur lors de la requête à l'API:", reponse.status_code)
