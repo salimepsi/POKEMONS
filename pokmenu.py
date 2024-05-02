@@ -1,15 +1,24 @@
 import requests
-import json
 
-# definir le endpoint de l'API
+# Définir l'URL de l'API
 url = "https://pokeapi.co/api/v2/pokemon-habitat/waters-edge/"
 
+# Faire une requête GET à l'API
+reponse = requests.get(url)
 
-# definir une variable qui contiens le resultat de l'API
-liste = requests.get(url)
+# Vérifier si la réponse est réussie (statut 200)
+if reponse.status_code == 200:
+    # Extraire les données JSON de la réponse
+    donnees = reponse.json()
 
-# verifier le statut de la reponse : 200 veut dire bonne reponse
-if liste.status_code == 200:
-    inf = liste.json()
-    print(inf)
+    # Extraire les noms des Pokémon de la clé "pokemon_species" et les stocker dans une liste
+    liste = [pokemon['name'] for pokemon in donnees['pokemon_species']]
+    
+    # Afficher la liste des noms des Pokémon
+    for nom in liste:
+            print(nom)
+    
 
+else:
+    # Si la réponse n'est pas réussie, afficher un message d'erreur
+    print("Erreur lors de la requête à l'API:", reponse.status_code)
